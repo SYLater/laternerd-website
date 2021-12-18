@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block title %}Minecraft realtime calculator{% endblock %}
+
+{% block content %}
+<h1>Minecraft realtime calculator</h1>
+
+ 
+<form method="POST">
+    <div class="form-group">
+    <label for="days">How old is your minecraft world?</label> 
+    <input  
+     type="text" 
+     name="days"
+     id="days"
+     class="form-control"
+     placeholder=""
+     />
+    </div>
+
+    <div aling="center">
+        <button type="submit" class="btn btn-primary">enter</button> 
+    </div>
+
+    <table  border=2px>
+        <tr>
+            <th width=70></th>
+            <th width=70>Minutes</th>
+            <th width=70>Hours</th>
+            <th width=70>Days</th>
+            <th width=70>Weeks</th>
+        </tr>
+        <tr>
+            <th>Time played</th>
+            <th>{{minutes}}</th>
+            <th>{{hours}}</th>
+            <th>{{days}}</th>
+            <th>{{weeks}}</th>
+        </tr>
+    </table>
+
+    <p>your minecraft world is
+        <p> You've played {{minutes}} minutes of Minecraft</p>
+        <p> You've played {{hours}} hours of Minecraft</p>
+        <p> You've played {{days}} days of Minecraft</p>
+        <p> You've played {{weeks}} weeks of Minecraft</p>
+    </p>
+        
+
+    
+    </div>
+
+
+{% endblock %}

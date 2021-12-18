@@ -1,0 +1,31 @@
+{% extends "base.html" %} {% block title %}Laternerd{% endblock %}
+
+{% block content %}
+<h1>♥</h1>
+
+<form method="POST">
+    <div class="form-group">
+    <label for="email">Email</label> 
+    <input  
+     type="text" 
+     name="email"
+     id="email"
+     class="form-control"
+     placeholder="Enter email"
+     />
+    </div>
+    <div class="form-group">
+        <label for="suggestions">Any suggestions?</label> 
+        <input  
+         type="text" 
+         name="suggestion"
+         id="suggestion"
+         class="form-control"
+         placeholder="Enter Suggestions"
+         />
+        </div>
+    <button type="submit">submit</button>
+</form>
+
+
+{% endblock %}
