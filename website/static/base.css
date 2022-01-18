@@ -1,0 +1,130 @@
+header {
+    background: var(rgb(138, 138, 173));
+    text-align: center;
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+}
+
+
+:root {
+    --background: url("images/background.png");
+}
+
+@font-face {
+    font-family: RandyGG;
+    src: url(RandyGGRegular.ttf);
+  }
+
+body{background-color:#111; color: aliceblue;
+ }
+
+.logo {
+    background-image: var(--background);
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    font-size: 4em;
+    
+}
+
+nav {
+    right: 0;
+    top: 100%;
+    text-align: left;
+    position: absolute;
+    background-color: rgba(29, 29, 29, 0.288);
+    display: none;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    margin-bottom: 1em;
+    margin-right: 1em;
+}
+
+nav a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 1.2em;
+    font-family: RandyGG;
+
+}
+
+nav a:hover {
+    color: gray
+    
+}
+
+
+
+.nav-toggle:checked ~ nav {
+    display:  block;
+    
+}
+
+.nav-toggle {
+    display: none;
+}
+
+
+
+
+
+.nav-toggle-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 1em;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    transform: rotate(180deg);
+}
+
+.nav-toggle-label:after {
+    content: "";
+    
+    transform: rotate(90deg);
+    cursor: pointer;
+} 
+
+.nav-toggle-label :active:after{
+    transition: transform .5s ease-in-out;
+} 
+
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after{
+    display: block;
+    background: grey;
+    height: 2px;
+    width: 2em;
+    border-radius: 2px;
+    position: relative;
+
+    cursor: pointer;
+}
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+    content: '';
+    position: absolute;
+    transition: transform .5s ease-in-out
+}
+.nav-toggle-label span::before {
+    bottom: 10px;
+    transition: transform .5s ease-in-out
+}
+.nav-toggle-label span::after {
+    top: 10px;
+    transition: transform .5s ease-in-out
+}

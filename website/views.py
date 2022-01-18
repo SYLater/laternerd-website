@@ -20,6 +20,11 @@ def pterodactyl():
 def Guacamole():
     return render_template('guacamole.html', user=current_user)
 
+@views.route('/dynmap')
+@login_required
+def dynmap():
+    return render_template('dynmap.html', user=current_user)
+
 @views.route('/calculator', methods=['GET', 'POST'])
 def calculator():
     if request.method == 'POST':
