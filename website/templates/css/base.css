@@ -29,6 +29,7 @@ body   {
     background-size: cover;
     position: relative;
     font-size: 4em;
+    
 }
 
 nav {
@@ -56,16 +57,19 @@ nav a {
     text-decoration: none;
     font-size: 1.2em;
     font-family: RandyGG;
+
 }
 
 nav a:hover {
     color: gray
+    
 }
 
 
 
 .nav-toggle:checked ~ nav {
     display:  block;
+    
 }
 
 .nav-toggle {
@@ -89,6 +93,7 @@ nav a:hover {
 
 .nav-toggle-label:after {
     content: "";
+    
     transform: rotate(90deg);
     cursor: pointer;
 } 
@@ -107,6 +112,7 @@ nav a:hover {
     width: 2em;
     border-radius: 2px;
     position: relative;
+
     cursor: pointer;
 }
 .nav-toggle-label span::before,
