@@ -15,4 +15,4 @@ python-engineio
 python-socketio
 six
 Werkzeug
-WTForms
+WTForms==2.2.1
