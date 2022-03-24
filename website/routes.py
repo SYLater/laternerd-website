@@ -10,11 +10,11 @@ def index():
     form = LoginForm()
     if form.validate_on_submit():
         session['name'] = form.name.data
-        # session['room'] = form.room.data
+        session['room'] = form.room.data
         return redirect(url_for('.chat'))
     elif request.method == 'GET':
         form.name.data = session.get('name', '')
-        # form.room.data = session.get('room', '')
+        form.room.data = session.get('room', '')
     return render_template('index.html', form=form, user=current_user)
 
 
@@ -23,7 +23,7 @@ def chat():
     """Chat room. The user's name and room must be stored in
     the session."""
     name = session.get('name', '')
-    room = '1'
+    room = session.get('room', '')
     if name == '' or room == '':
         return redirect(url_for('.index'))
     return render_template('chat.html', name=name, room=room, user=current_user)

@@ -6,5 +6,5 @@ from flask_wtf import FlaskForm
 class LoginForm(FlaskForm):
     """Accepts a nickname and a room."""
     name = StringField('Name', validators=[Required()])
-    room = StringField('Room')
+    room = StringField('Room', validators=[Required()])
     submit = SubmitField('Enter Chatroom')
