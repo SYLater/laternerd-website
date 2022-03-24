@@ -10,6 +10,7 @@ from flask_socketio import emit, join_room, leave_room, SocketIO
 socketio = SocketIO()
 
 
+
 db = SQLAlchemy()
 DB_NAME = 'database.db'
 
@@ -66,7 +67,8 @@ def create_app():
         leave_room(room)
         emit('status', {'msg': session.get('name') + ' has left the room.'}, room=room,user=current_user)
     
-    socketio.init_app(app)
+
+    socketio.init_app(app, cors_allowed_origins="*")
     return app
 
 
