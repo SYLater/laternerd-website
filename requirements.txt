@@ -15,4 +15,4 @@ Werkzeug
 WTForms==2.2.1
 python-socketio==4.6.0
 python-engineio==3.13.2
-Flask-SocketIO==2.3.0
+Flask-SocketIO==4.3.1
