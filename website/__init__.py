@@ -20,7 +20,7 @@ def create_app():
     app = Flask(__name__)
     app.debug = debug
     app.config['SECRET_KEY'] = 'IloveLilly'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://later:flower7@192.168.0.87:33060/laternerd'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://later:flower7@192.168.0.87:33060/site'
     db.init_app(app)
     
 
