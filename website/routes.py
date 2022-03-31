@@ -1,8 +1,13 @@
 from flask import Blueprint, session, redirect, url_for, render_template, request
 from .forms import LoginForm
 from flask_login import login_user, login_required, logout_user, current_user
+from . import db
+from libgravatar import Gravatar
+
 
 routes = Blueprint('routes', __name__)
+
+
 
 @routes.route('/user', methods=['GET', 'POST'])
 def index():
@@ -24,6 +29,7 @@ def chat():
     the session."""
     name = session.get('name', '')
     room = session.get('room', '')
+    messages = ['message one','message two']
     if name == '' or room == '':
         return redirect(url_for('.index'))
-    return render_template('chat.html', name=name, room=room, user=current_user)
+    return render_template('chat.html', name=name, room=room, user=current_user, messages=messages)

@@ -6,12 +6,12 @@ class Suggestions(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10000))
 
-class Room(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    room = db.Column(db.String(10000))
-
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(150), unique=True)
+    Email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
+
+class History(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    msgh = db.Column(db.String(10000))
 

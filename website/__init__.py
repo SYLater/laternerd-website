@@ -7,24 +7,26 @@ from flask_login import LoginManager, login_manager, current_user
 from flask_socketio import emit, join_room, leave_room, SocketIO
 
 
+
+
 socketio = SocketIO()
 
 
 
 db = SQLAlchemy()
-DB_NAME = 'database.db'
 
 
 def create_app():
     app = Flask(__name__)
     app.debug = debug
     app.config['SECRET_KEY'] = 'IloveLilly'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///' + DB_NAME
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://later:flower7@192.168.0.87:33060/laternerd'
     db.init_app(app)
+    
 
     from .views import views
     from .auth import auth
-    from .models import User, Suggestions
+    from .models import User, Suggestions, History
     from .routes import routes 
     
  
@@ -32,10 +34,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    
-    
-
-    create_database(app)
+    db.create_all(app=app)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -67,12 +66,5 @@ def create_app():
         leave_room(room)
         emit('status', {'msg': session.get('name') + ' has left the room.'}, room=room,user=current_user)
     
-
     socketio.init_app(app, cors_allowed_origins="*")
     return app
-
-
-def create_database(app):
-    if not path.exists('website/' + DB_NAME):
-        db.create_all(app=app)
-        print('Created Database!')

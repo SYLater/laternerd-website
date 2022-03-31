@@ -2,10 +2,10 @@
 {% block content %}
 <html>
     <head>
-        <title>Flask-SocketIO-Chat</title>
+        <title>Text chat</title>
     </head>
     <body>
-        <h1>Flask-SocketIO-Chat</h1>
+        <h1>Text chat</h1>
         <form method="POST">
             {{ form.hidden_tag() }}
             {{ form.name.label }}: {{ form.name() }} {% for error in form.name.errors %}{{ error }}{% endfor %}<br>

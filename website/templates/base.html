@@ -6,8 +6,9 @@
   <a class="nav-item"><a class="nav-link" id="calculator" href="/calculator"><span class="link-text">Minecraft</a>
     {% if user.is_authenticated %}
     <a class="nav-item"><a class="nav-link" id="user" href="/user"><span class="link-text">chat</a>
+    <a class="nav-item"><a class="nav-link" id="suggestions" href="/suggestions"><span class="link-text">Suggestions</a>
     <div class="dropdown">
-      <button onclick="myFunction()" class="dropbtn">{{user.username}}</button>
+      <button onclick="myFunction()" class="dropbtn">{{user.Email}}</button>
       <div id="myDropdown" class="dropdown-content">
         <a class="nav-item"><a class="nav-link" id="logout" href="/logout"><span class="link-text">Logout</a>
       </div>
