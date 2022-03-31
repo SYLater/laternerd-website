@@ -18,3 +18,4 @@ python-engineio==3.13.2
 Flask-SocketIO==2.3.0
 libgravatar
 pymysql
+cryptography
