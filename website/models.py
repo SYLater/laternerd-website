@@ -11,7 +11,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     Email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
-    username = db.Column(db.String(150))
+    Username = db.Column(db.String(150))
 
 class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
