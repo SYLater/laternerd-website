@@ -4,8 +4,8 @@ from sqlalchemy.sql import func
 
 class Suggestions(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    suggestion = db.Column(db.String(10000))
-    email = db.Column(db.String(10000))
+    suggestion = db.Column(db.String(200))
+    email = db.Column(db.String(200))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -15,5 +15,5 @@ class User(db.Model, UserMixin):
 
 class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    msgh = db.Column(db.String(10000))
+    msgh = db.Column(db.String(200))
 
