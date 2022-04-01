@@ -56,7 +56,7 @@ def suggestions():
         else:
             new_suggestion  = Suggestions(suggestion=suggestion, email=email)
             db.session.add(new_suggestion)
-            db.session.commit()
+            db.session.commit() 
             flash('Thanks!', category='success')
             return redirect(url_for('views.suggestions'))         
     return render_template('suggestions.html', user=current_user)    
