@@ -43,8 +43,6 @@ def calculator():
 @views.route('/suggestions', methods=['GET', 'POST'])
 def suggestions():
     if request.method == 'POST':
-        data = request.form
-        print(data)
         email = request.form.get('email')
         suggestion = request.form.get('suggestion')
 
@@ -56,9 +54,7 @@ def suggestions():
         elif len(suggestion) < 4:
             flash('suggestion must be at least 4 characters.', category='error')
         else:
-            new_user = User(email=email)
-            db.session.add(new_user)
-            new_suggestion  = Suggestions(data=suggestion)
+            new_suggestion  = Suggestions(suggestion=suggestion, email=email)
             db.session.add(new_suggestion)
             db.session.commit()
             flash('Thanks!', category='success')
