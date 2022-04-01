@@ -46,10 +46,7 @@ def suggestions():
         email = request.form.get('email')
         suggestion = request.form.get('suggestion')
 
-        user = Suggestions.query.filter_by(email=email).first()
-        if user:
-            flash('you can only send one suggestion per email.', category='error')
-        elif len(email) < 3:
+        if len(email) < 3:
             flash('Email must be greater than 3 characters.', category='error')
         elif len(suggestion) < 4:
             flash('suggestion must be at least 4 characters.', category='error')
