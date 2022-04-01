@@ -4,7 +4,8 @@ from sqlalchemy.sql import func
 
 class Suggestions(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    data = db.Column(db.String(10000))
+    suggestion = db.Column(db.String(10000))
+    email = db.Column(db.String(10000))
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
