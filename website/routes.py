@@ -15,7 +15,7 @@ def index():
     form = LoginForm()
     if form.validate_on_submit():
         session['name'] = form.name.data
-        session['room'] = form.room.data
+        session['room'] = request.form.get('room')
         return redirect(url_for('.chat'))
     elif request.method == 'GET':
         form.name.data = session.get('name', '')
