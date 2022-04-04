@@ -9,8 +9,14 @@
         <form method="POST">
             {{ form.hidden_tag() }}
             {{ form.name.label }}: {{ form.name() }} {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
-            {{ form.room.label }}: {{ form.room() }} {% for error in form.room.errors %}{{ error }}{% endfor %}<br> 
-            {{ form.submit() }}
+            <label>Room</label>
+                <select id="room" name="room">
+                    <option  value="school">school</option>
+                    <option  value="private chat 1">Private chat 1</option>
+                    <option  value="private chat 2">Private chat 2</option>
+                    <option  value="♥">♥</option>
+                </select>
+            <input type="submit"> 
         </form>
     </body>
 </html>
