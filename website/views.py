@@ -1,14 +1,20 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, send_from_directory
 from .models import User,Suggestions
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
+import os
 
 views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
     return render_template('home.html', user=current_user) 
+
+@views.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(views.root_path, 'static/images'),
+                               'favicon.ico', mimetype='image/favico.icon')
 
 @views.route('/pterodactyl')
 @login_required

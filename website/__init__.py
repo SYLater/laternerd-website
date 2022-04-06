@@ -14,13 +14,14 @@ socketio = SocketIO()
 
 
 db = SQLAlchemy()
-
+# DB_NAME = 'database.db'
 
 def create_app():
     app = Flask(__name__)
     app.debug = debug
     app.config['SECRET_KEY'] = 'IloveLilly'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://later:flower7@192.168.0.87:33060/nerd'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///' + DB_NAME
     db.init_app(app)
     
 
@@ -42,6 +43,7 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+
 
     @socketio.on('joined', namespace='/chat')
     def joined(message):
@@ -68,3 +70,9 @@ def create_app():
     
     socketio.init_app(app, cors_allowed_origins="*")
     return app
+
+
+# def create_database(app):
+#     if not path.exists('website/' + DB_NAME):
+#         db.create_all(app=app)
+#         print('Created Database!')

@@ -1,8 +1,9 @@
-from flask import Blueprint, session, redirect, url_for, render_template, request
+from flask import Blueprint, session, redirect, url_for, render_template, request, send_from_directory
 from .forms import LoginForm
+import os
 from flask_login import login_user, login_required, logout_user, current_user
 from . import db
-from libgravatar import Gravatar
+# from libgravatar import Gravatar
 
 
 routes = Blueprint('routes', __name__)
@@ -29,7 +30,12 @@ def chat():
     the session."""
     name = session.get('name', '')
     room = session.get('room', '')
-    messages = ['message one','message two']
     if name == '' or room == '':
         return redirect(url_for('.index'))
-    return render_template('chat.html', name=name, room=room, user=current_user, messages=messages)
+    return render_template('chat.html', name=name, room=room, user=current_user)
+
+
+@routes.route('/chat.js')
+def chatjs():
+    return send_from_directory(os.path.join(routes.root_path, 'static'),
+                               'chat.js', mimetype='chat.js')

@@ -5,21 +5,30 @@
         <title>School chat: {{ room }}</title>
         <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
-        <script type="text/javascript" charset="utf-8">
-            var socket;
+        <link rel="stylesheet" type="text/css" href="static/chat.css" />
+        <!-- <script type="text/javascript" src="{{ url_for('static', filename='chat.js') }}"></script> -->
+        <script type="text/javascript" charset="utf-8">  
+        
+             var myDate = new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+             var socket;
             $(document).ready(function(){
-                socket = io.connect('https://' + document.domain + ':' + location.port + '/chat');
-                socket.on('connect', function() {
-                    socket.emit('joined', {});
-                });
+                socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+
+                    socket.on('connect', function() {
+                        socket.emit('joined', {});
+                    });
+
+                //joined function
                 socket.on('status', function(data) {
-                    $('#chat').val($('#chat').val() + '<' + data.msg + '>\n');
-                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
+                    $('#joined').val($('#joined').val() + '<' + data.msg +'>\n');
+                    $('#joined').scrollTop($('#joined')[0].scrollHeight);
                 });
+                //messages
                 socket.on('message', function(data) {
                     $('#chat').val($('#chat').val() + data.msg + '\n');
                     $('#chat').scrollTop($('#chat')[0].scrollHeight);
                 });
+ 
                 $('#text').keypress(function(e) {
                     var code = e.keyCode || e.which;
                     if (code == 13) {
@@ -29,6 +38,7 @@
                     }
                 });
             });
+
             function leave_room() {
                 socket.emit('left', {}, function() {
                     socket.disconnect();
@@ -39,9 +49,10 @@
             }
         </script>
     </head>
-    <body>
-        <h1>School chat</h1>
-        <textarea id="chat" cols="80" rows="20" readonly></textarea><br><br>
+    <body align="center">
+        <h1 style="text-align:center;">School chat {{ room }}</h1>
+        <textarea id="chat" cols="80" rows="20" readonly placeholder="Say Something"></textarea>
+        <textarea id="joined" cols="40" rows="20" readonly></textarea><br><br>
         <input id="text" size="80" placeholder="Enter your message here"><br><br>
         <a href="#" onclick="leave_room();">Leave this room</a>
     </body>

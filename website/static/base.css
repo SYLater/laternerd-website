@@ -30,9 +30,7 @@ button {
 }
 
 main {
-    margin-top:  1rem;;
-    padding: 0px; 
-    position: fixed;
+    background-color:#111;
 }
 
 body   {
