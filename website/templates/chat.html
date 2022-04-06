@@ -8,11 +8,9 @@
         <link rel="stylesheet" type="text/css" href="static/chat.css" />
         <!-- <script type="text/javascript" src="{{ url_for('static', filename='chat.js') }}"></script> -->
         <script type="text/javascript" charset="utf-8">  
-        
-             var myDate = new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
              var socket;
             $(document).ready(function(){
-                socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+                socket = io.connect('https://' + document.domain + ':' + location.port + '/chat');
 
                     socket.on('connect', function() {
                         socket.emit('joined', {});

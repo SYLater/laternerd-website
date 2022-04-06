@@ -9,15 +9,28 @@
         <form method="POST">
             {{ form.hidden_tag() }}
             {{ form.name.label }}: {{ form.name() }} {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
-            <label>Room</label>
+            <label>Room:    </label>
                 <select id="room" name="room">
                     <option  value="school">school</option>
                     <option  value="private chat 1">Private chat 1</option>
                     <option  value="private chat 2">Private chat 2</option>
                     <option  value="♥">♥</option>
                 </select>
-            <input type="submit"> 
+                <button type="submit">submit</button>
         </form>
     </body>
 </html>
+
+<style>
+    .button {
+    color: aliceblue;
+    font-family: RandyGG;
+    background-color: #333;
+    text-align: center;
+    padding: 3px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+</style>
 {% endblock %}
