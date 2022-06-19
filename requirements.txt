@@ -11,11 +11,12 @@ Jinja2
 MarkupSafe
 monotonic
 six
-Werkzeug
+Werkzeug==2.0.0
 WTForms==2.2.1
 python-socketio==4.6.0
 python-engineio==3.13.2
 Flask-SocketIO==2.3.0
-libgravatar
 pymysql
 cryptography
+requests
+pillow

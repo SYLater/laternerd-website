@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block title %}Laternerd test 10{% endblock %}
+
+{% block content %}
+<html>
+  <head>
+  <form method="post">
+    <div class="padua">
+        <label for="paduaemail">Padua Email</label> 
+         <input  
+        type="text" 
+        name="paduaemail"
+        id="paduaemail"
+        placeholder="Enter your Padua Email"/>
+        </div>
+    <div class="padua">
+        <label for="paduapassword">Padua Password</label> 
+         <input  
+        type="text" 
+        name="paduapassword"
+        id="paduapassword"
+        placeholder="Enter your Padua password"/>
+        </div>
+    <button type="submit">submit</button>
+  </form>
+</html>
+{% endblock %}

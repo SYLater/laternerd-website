@@ -1,108 +1,83 @@
 <!DOCTYPE html>
 <html>
 
-<header>
-  <div  class="nav">
-    <a class="nav-item"><a class="nav-link" id="home" href="/"><span class="link-text">Home</a>
-    <a class="nav-item"><a class="nav-link" id="calculator" href="/calculator"><span class="link-text">Minecraft</a>
-      {% if user.is_authenticated %}
-      <a class="nav-item"><a class="nav-link" id="user" href="/user"><span class="link-text">chat</a>
-      <a class="nav-item"><a class="nav-link" id="suggestions" href="/suggestions"><span class="link-text">Suggestions</a>
-      <div class="dropdown">
-        <button onclick="myFunction()" class="dropbtn">{{user.Username}}</button>
-        <div id="myDropdown" class="dropdown-content">
+
+
+
+<main>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/base.css') }}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <title>{% block title %}Laternerd{% endblock %}</title>
+    <header>
+      <div class="nav">
+        <a class="nav-item"><a class="nav-link" id="home" href="/"><span class="link-text">Home</a>
+        <a class="nav-item"><a class="nav-link" id="calculator" href="/calculator"><span class="link-text">Minecraft</a>
+          {% if user.is_authenticated %}
+        <a class="nav-item"><a class="nav-link" id="user" href="/user"><span class="link-text">chat</a>
+        <!-- <a class="nav-item"><a class="nav-link" id="bettersimonload" href="/bettersimonload" class="link-text">BetterSimonload</a> -->
+        <a class="nav-item"><a class="nav-link" id="suggestions" href="/suggestions"><span class="link-text">Suggestions</a>
+        <div class="dropdown">
+          <img src="{{user.icon}}" class="icon" />
+            <button onclick="NavDropDown()" class="dropbtn">{{user.UserName}}</button>
+          <div id="myDropdown" class="dropdown-content">
+          <a class="nav-item"><a class="nav-link" id="account" href="/account"><span class="link-text">Account</a>
           <a class="nav-item"><a class="nav-link" id="logout" href="/logout"><span class="link-text">Logout</a>
-        </div>
-        <!-- <div class="color-changer">
-          color
-          <input type="color"> -->
-         </div>
+          <!-- <a class="nav-item"><a class="nav-link" id="bettersimon" href="/bettersimonlogin" class="link-text">BetterSimon</a> -->
+      </div>
         {% else %}
-        <div class="nav-right">
+      <div class="nav-right">
       <a class="nav-item"><a class="nav-link" id="login" href="/login"><span class="link-text">login</a>
       <a class="nav-item"><a class="nav-link" id="sign_up" href="/sign_up"><span class="link-text">sign_up</a>
       </div>
         {% endif %}
+      </div>
+    </header>
+  </head>
+  <!-- Flashing errors -->
+  <div>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+    {% for category, message in messages %} {% if category == 'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
   </div>
-</header>
-
-
-  <main>
-    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>{% block title %}Laternerd{% endblock %}</title>
-      <link rel="stylesheet" type="text/css" href="static/base.css" />
-      <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    </head>
-      {% with messages = get_flashed_messages(with_categories=true) %} {% if
-      messages %} {% for category, message in messages %} {% if category ==
-      'error' %}
-      <div class="alert alert-danger alter-dismissable fade show" role="alert">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% else %}
-      <div class="alert alert-success alter-dismissable fade show" role="alert">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      {% endif %} {% endfor %} {% endif %} {% endwith %}
-
-      <div class="container">{% block content %} {% endblock %}</div>
-      <script
-        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"
-      ></script>
-      <script
-        type="text/javascript"
-        src="{{ url_for('static', filename='index.js') }}"
-      ></script>
-      <script>
-        /* When the user clicks on the button, 
-        toggle between hiding and showing the dropdown content */
-        function myFunction() {
-          document.getElementById("myDropdown").classList.toggle("show");
-        }
-        
-        // Close the dropdown if the user clicks outside of it
-        window.onclick = function(event) {
-          if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-            for (i = 0; i < dropdowns.length; i++) {
-              var openDropdown = dropdowns[i];
-              if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-              }
-            }
-          }
-        }
-        </script>
-
-    <!-- <script>
-      const changer = document.querySelector("div-color-changer input")
-      const bodyTag = document.querySelector("body")
-      
-      changer.addEventListener("input", function () {
-        bodyTag.style.backgroundColor = change.value 
-      
-      })
-      </script> -->
+  {% endif %} {% endfor %} {% endif %} {% endwith %}
+  <!-- Other HTML Content -->
+  <div class="container">
+    {% block content %} {% endblock %}
+  </div>
+  <!-- ChangeBackground Colour -->
+  <div  id='colorchangerbtn' class="color-changer">Background Colour
+      <input  oninput="colorchanger()" id='colorchangerbtn' name="colorchangerbtn" type="color"></input>
+  </div>
+  <script>
+    
+    const changer = document.querySelector("div.color-changer input")
+    const bodyTag = document.querySelector("body")
+    changer.addEventListener("input", function () {
+      bodyTag.style.backgroundColor = changer.value
+      const color = (changer.value)
+    })
+  </script>
   </main>
 </html>

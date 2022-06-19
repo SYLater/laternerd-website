@@ -1,3 +1,6 @@
+from flask import Flask, render_template
+from flask_socketio import SocketIO
+
 from website import create_app, socketio
 
 app = create_app()

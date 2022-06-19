@@ -1,0 +1,107 @@
+{% extends "base.html" %} {% block title %}Laternerd test 10{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>For loop in Flask</title>
+</head>
+
+<!-- Adding some style to table (OPTIONAL) -->
+<style type="text/css">
+    th:tr {
+        color: blue;
+
+    }
+
+    tr:nth-of-type(2n) {
+        border: 1px solid black;
+        background-color: rgba(150, 150, 150, 0.5);
+
+    }
+
+    td {
+        padding: 8px 8px;
+        border: 1px solid black;
+    }
+
+    .UsersIcon {
+        position: inherit;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        object-fit: cover
+    }
+</style>
+
+<body>
+    <div>
+        <table style="margin-left: 20px;">
+            <!-- Table headers -->
+            <th>
+                <tr style="color: green; ">
+                    <td>id</td>
+                    <td>Email</td>
+                    <td>suggestion</td>
+                </tr>
+            </th>
+            <!-- For loop logic of jinja template -->
+            {%for suggestion in suggestions%}
+            <!-- table rows -->
+            <tr>
+                <td>{{suggestion.id}}</td>
+                <td>{{suggestion.email}}</td>
+                <td>{{suggestion.suggestion}}</td>
+                {%endfor%}
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table style="margin-left: 20px;">
+            <!-- Table headers -->
+            <th>
+                <tr style="color: green; ">
+                    <td>id</td>
+                    <td>Email</td>
+                    <td>UserName</td>
+                    <td>Icon</td>
+                </tr>
+            </th>
+            <!-- For loop logic of jinja template -->
+            {%for users1 in users%}
+            <!-- table rows -->
+            <tr>
+                <td>{{users1.id}}</td>
+                <td>{{users1.Email}}</td>
+                <td>{{users1.UserName}}</td>
+                <td><img src="{{users1.icon}}" alt="static/images/usericons/default_icon.png" class='UsersIcon' /></td>
+                {%endfor%}
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table style="margin-left: 20px;">
+            <!-- Table headers -->
+            <th>
+                <tr style="color: green; ">
+                    <td>id</td>
+                    <td>Message</td>
+                </tr>
+            </th>
+            <!-- For loop logic of jinja template -->
+            {%for history1 in history%}
+            <!-- table rows -->
+            <tr>
+                <td>{{history1.id}}</td>
+                <td>{{history1.msgh}}</td>
+                {%endfor%}
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
+{% endblock %}

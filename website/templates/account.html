@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block title %}Laternerd login{% endblock %}
+
+{% block content %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<h1>Account</h1>
+
+
+
+
+<div class="div1">
+  <img src="{{user.icon}}" alt="{{user.iconName}}" class="showicon">
+  <table>
+    <th>
+        <tr>
+            <td class="info">UserName</td>
+            <td>{{user.UserName}}</td>
+        </tr>
+    </th>
+    <tr>
+        <td class="info">Email</td>
+        <td>{{user.Email}}</td>
+    </tr>
+  </table>
+  <form method="POST" enctype="multipart/form-data">
+    <label for="icon">Icon</label>
+    <input type="file" name="icon" placeholder="Enter icon Link" />
+    <button type="submit">submit</button>
+  </form>
+</div>
+
+
+<style>
+  .showicon {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .info {
+    width: 30%;
+  }
+  td {
+    border:1px solid black;
+    border-collapse: collapse;
+  }
+  .div1 {
+    position: absolute;
+    left: 0%;
+  }
+</style>
+{% endblock %}
