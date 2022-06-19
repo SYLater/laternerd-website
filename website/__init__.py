@@ -36,13 +36,14 @@ def create_app():
     from .routes import routes
     # from .simon import simon
     from .views import views
-    db.update(User)
+
     app.register_blueprint(routes)
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     # app.register_blueprint(simon, url_prefix='/')
 
     db.create_all(app=app)
+    db.create_all
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
