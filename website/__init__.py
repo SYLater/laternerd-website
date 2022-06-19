@@ -31,7 +31,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://later:flower7@192.168.0.87:33060/nerd'
     # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///' + DB_NAME
     db.init_app(app)
-
+    db.create_all()
     from .auth import auth
     from .models import History, Suggestions, User
     from .routes import routes
