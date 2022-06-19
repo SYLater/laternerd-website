@@ -43,7 +43,6 @@ def create_app():
     # app.register_blueprint(simon, url_prefix='/')
 
     db.create_all(app=app)
-    db.create_all
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
