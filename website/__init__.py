@@ -31,13 +31,12 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://later:flower7@192.168.0.87:33060/nerd'
     # app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///' + DB_NAME
     db.init_app(app)
-    db.update(User)
     from .auth import auth
     from .models import History, Suggestions, User
     from .routes import routes
     # from .simon import simon
     from .views import views
-
+    db.update(User)
     app.register_blueprint(routes)
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
