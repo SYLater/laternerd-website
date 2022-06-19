@@ -73,7 +73,6 @@ def create_app():
         """Sent by a client when the user entered a new message.
         The message is sent to all people in the room."""
         room = session.get('room')
-        emit('message', {'msg': session.get('name') + ':' + message['msg']}, room=room,user=current_user)
 
     @socketio.on('left', namespace='/chat')
     def left(message):
