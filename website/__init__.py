@@ -11,6 +11,7 @@ from flask_login import LoginManager, current_user, login_manager
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
+from datetime import datetime
 
 socketio = SocketIO()
 
@@ -75,8 +76,11 @@ def create_app():
         ChatHistory = History(msgh=session.get('name') + ':' + message['msg'])
         db.session.add(ChatHistory)
         db.session.commit() 
+        
+        currentDateAndTime = datetime.now()
+        currentTime = currentDateAndTime.strftime("%H:%M")
         print(session.get('name') + ':' + message['msg'])
-        emit('message', {'msg': session.get('name') + ' 1:17 \n ' + message['msg']}, room=room, user=current_user)
+        emit('message', {'msg': session.get('name') + ' Today at '+currentTime+': ' + message['msg']}, room=room, user=current_user)
 
     @socketio.on('left', namespace='/chat')
     def left(message):
