@@ -48,7 +48,7 @@
     <script type="text/javascript" charset="utf-8">
         var socket;
         $(document).ready(function () {
-            socket = io.connect('https://' + document.domain + ':' + location.port + '/chat');
+            socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + '/chat');
 
             socket.on('connect', function () {
                 socket.emit('joined', {});
@@ -75,18 +75,28 @@
                 }
             });
         });
-
-
+        $(document).ready(function () {
+            var $textarea = $('#chat');
+            $textarea.scrollTop($textarea[0].scrollHeight);
+        });
+        function leave_room() {
+            socket.emit('left', {}, function () {
+                socket.disconnect();
+            });
+        }
     </script>
 </head>
 
-<body align="center">
+<body align="center" onbeforeunload="return leave_room()">
     <h1 style="text-align:center;">School chat {{ room }}</h1>
     <textarea id="chat" cols="80" rows="20" readonly>
         {%for history1 in history%}
-        {{history1.msgh}} {%endfor%}
+        {{history1.msgh}}{%endfor%}
+        ------------------------------------------------------------------------------
+        End of old mesages
+        ------------------------------------------------------------------------------
         </textarea>
-    <textarea id="joined" cols="40" rows="20" readonly></textarea><br><br>
+    <textarea id="joined" cols="50" rows="20" readonly></textarea><br><br>
     <input id="text" size="80" placeholder="Enter your message here"><br><br>
     <a href="#" onclick="leave_room();">Leave this room</a>
     <p></p>

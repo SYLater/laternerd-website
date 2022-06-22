@@ -12,6 +12,8 @@ from flask_socketio import SocketIO, emit, join_room, leave_room
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from datetime import datetime
+import pytz
+
 
 socketio = SocketIO()
 
@@ -64,9 +66,12 @@ def create_app():
         """Sent by clients when they enter a room.
         A status message is broadcast to all people in the room."""
         room = session.get('room')
+        tz_IN = pytz.timezone('Australia/Victoria')
+        datetime_IN = datetime.now(tz_IN)
+        currentTime = datetime_IN.strftime("%H:%M")
         join_room(room)
         emit('status', {'msg': session.get('name') +
-             ' has entered the room.'}, room=room, user=current_user)
+             ' has entered the room Today at '+currentTime }, room=room, user=current_user)
 
     @socketio.on('text', namespace='/chat')
     def text(message):
@@ -77,10 +82,9 @@ def create_app():
         db.session.add(ChatHistory)
         db.session.commit() 
         
-        currentDateAndTime = datetime.now()
-        currentTime = currentDateAndTime.strftime("%H:%M")
+
         print(session.get('name') + ':' + message['msg'])
-        emit('message', {'msg': session.get('name') + ' Today at '+currentTime+': ' + message['msg']}, room=room, user=current_user)
+        emit('message', {'msg': session.get('name') + ':'+ message['msg']}, room=room, user=current_user)
 
     @socketio.on('left', namespace='/chat')
     def left(message):
