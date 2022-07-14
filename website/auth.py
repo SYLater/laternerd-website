@@ -1,3 +1,4 @@
+import json
 import os
 import os.path
 import shutil
@@ -13,6 +14,10 @@ from werkzeug.datastructures import FileStorage
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 from PIL import Image
+from enum import unique
+from flask_login import UserMixin
+from sqlalchemy.sql import func
+from sqlalchemy import Column, ForeignKey, Integer, Unicode, update
 
 from . import db
 from .models import Suggestions, User
@@ -83,62 +88,75 @@ def logout():
 @login_required
 def Account():
     user = User.query.filter_by(id=current_user.id).first()
+    updated_values_dict = request.form.to_dict()
+    if user.paduaEmail:
+        paduaEmail = user.paduaEmail
+    else:
+        paduaEmail = 'nothing'
     if request.method == 'POST':
-
         icon = request.files['icon']
-        iconName = secure_filename(icon.filename)
-        RawIconName = (current_app.config['UPLOAD_FOLDER'] + "/" + iconName)
-        icon_extention = os.path.splitext(RawIconName)[1]
-        FullIconDir = current_app.config['UPLOAD_FOLDER'] + "/" + user.UserName + icon_extention
-        FormattedIconName = user.UserName + icon_extention
-        
-
-        if 'icon' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
 
         if icon.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
+            newUserName= request.form.get('NewUserName')
+            for k, v in updated_values_dict.items():
+                if k == 'NewUserName':
+                    user.UserName = v.rstrip()
+            db.session.commit()
 
-        if path.exists(FullIconDir):
-            os.remove(FullIconDir)
+        else:
+            iconName = secure_filename(icon.filename)
+            iconNametemp = 'temp'
+            RawIconNameTemp = (current_app.config['UPLOAD_FOLDER'] + "/" + iconNametemp)
+            RawIconName = (current_app.config['UPLOAD_FOLDER'] + "/" + iconName)
+            icon_extention = os.path.splitext(RawIconName)[1]
+            FullIconDir = current_app.config['UPLOAD_FOLDER'] + "/" + user.UserName + icon_extention
+            FullIconDirTemp = current_app.config['UPLOAD_FOLDER'] + "/" + iconNametemp + icon_extention
+            FormattedIconName = user.UserName + icon_extention
 
-
-        if icon and allowed_file(icon.filename):
-            icon.save(os.path.join(current_app.config['UPLOAD_FOLDER'], iconName))
-            os.rename(RawIconName, FullIconDir)
-            
-            for FormattedIconName in os.listdir(current_app.config['UPLOAD_FOLDER']):
-                with Image.open (str(FullIconDir)) as im:
-                    x= im.size
-                    y = im.size
-                    x, y = im.size
-                totalsize = x*y
-                print(x)
-                print(y)
-
-            if x > 1000:
-                flash('Icon needs to be less than 1000x1000')
-                os.remove(FullIconDir)
-                return redirect(request.url)     
-            if y > 1000:
-                flash('Icon needs to be less than 1000x1000')
-                os.remove(FullIconDir)
-                return redirect(request.url)                    
-
-            file_length = os.stat(FullIconDir).st_size
-            if file_length > 3000000:
-                flash('Icon needs to be less than 3MB')
-                os.remove(FullIconDir)
+            if 'icon' not in request.files:
+                flash('No file part')
                 return redirect(request.url)
             
-            IconDirSite = ('static/images/usericons/' + user.UserName + icon_extention)
-            user.icon = IconDirSite
-            db.session.commit()
-            flash('Image successfully uploaded and displayed below')
-            return render_template('account.html', filename=iconName, user=current_user)
-        else:
-            flash('Allowed image types are - png, jpg, jpeg, gif')
-            return redirect(request.url)
-    return render_template('account.html', user=current_user)
+            if icon.filename == '':
+                flash('No selected file')
+
+            if icon and allowed_file(icon.filename):
+                icon.save(os.path.join(current_app.config['UPLOAD_FOLDER'], iconNametemp))
+                os.rename(RawIconNameTemp, FullIconDirTemp)
+                
+                for FormattedIconName in os.listdir(current_app.config['UPLOAD_FOLDER']):
+                    with Image.open (str(FullIconDirTemp)) as im:
+                        x= im.size
+                        y = im.size
+                        x, y = im.size
+                    totalsize = x*y
+                    print(x)
+                    print(y)
+
+                if x > 1000:
+                    flash('Icon needs to be less than 1000x1000')
+                    os.remove(FullIconDirTemp)
+                    return redirect(request.url)     
+                if y > 1000:
+                    flash('Icon needs to be less than 1000x1000')
+                    os.remove(FullIconDirTemp)
+                    return redirect(request.url)                    
+
+                file_length = os.stat(FullIconDirTemp).st_size
+                if file_length > 3000000:
+                    flash('Icon needs to be less than 3MB')
+                    os.remove(FullIconDirTemp)
+                    return redirect(request.url)
+                if path.exists("website/"  + user.icon):
+                    os.remove("website/"  + user.icon)
+                os.rename(FullIconDirTemp, FullIconDir)
+                IconDirSite = ('static/images/usericons/' + user.UserName + icon_extention)
+                user.icon = IconDirSite
+                db.session.commit()
+                flash('Image successfully uploaded and displayed below')
+                return render_template('account.html', filename=iconName, user=current_user, paduaEmail=paduaEmail)
+            else:
+                flash('Allowed image types are - png, jpg, jpeg, gif')
+                return redirect(request.url)
+        
+    return render_template('account.html', user=current_user, paduaEmail=paduaEmail)

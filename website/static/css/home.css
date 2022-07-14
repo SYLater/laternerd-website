@@ -1,1 +1,31 @@
+.chatshowcase1 {
+    position: inherit;
+    height: 220px;
+    width: 300px;
+    right: 101%;
+    top: 11%;
+    object-fit: cover;
+    object-position: 100% 100%;
+ 
+}
 
+
+.chatshowcase {
+    position: inherit;
+    height: 225px;
+    width: 500px;
+    right: 101%;
+    top: 11%;
+    object-fit: cover;
+}
+
+tr:nth-of-type(2n) {
+    border: 1px solid black;
+    background-color: rgba(150, 150, 150, 0.5);
+
+}
+
+td {
+    padding: 8px 8px;
+    border: 1px solid black;
+}

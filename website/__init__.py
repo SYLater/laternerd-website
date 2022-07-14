@@ -10,10 +10,10 @@ from flask import (Blueprint, Flask, Response, flash, redirect,
 from flask_login import LoginManager, current_user, login_manager
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.utils import secure_filename
-from datetime import datetime
 import pytz
-
+from werkzeug.utils import secure_filename
+import datetime
+from datetime import datetime
 
 socketio = SocketIO()
 
@@ -40,6 +40,7 @@ def create_app():
     # from .simon import simon
     from .views import views
 
+
     app.register_blueprint(routes)
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
@@ -55,36 +56,28 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
 
-    @app.errorhandler(404)
-    def page_not_found(e):
-        # note that we set the 404 status explicitly
-        return render_template('404.html'), 404
-
-
     @socketio.on('joined', namespace='/chat')
     def joined(message):
         """Sent by clients when they enter a room.
         A status message is broadcast to all people in the room."""
         room = session.get('room')
-        tz_IN = pytz.timezone('Australia/Victoria')
-        datetime_IN = datetime.now(tz_IN)
-        currentTime = datetime_IN.strftime("%H:%M")
         join_room(room)
-        emit('status', {'msg': session.get('name') +
-             ' has entered the room Today at '+currentTime }, room=room, user=current_user)
+        emit('status', {'msg': session.get('name') + ' has entered the room '}, room=room, user=current_user)
 
     @socketio.on('text', namespace='/chat')
     def text(message):
-        """Sent by a client when the user entered a new message.
-        The message is sent to all people in the room."""
-        room = session.get('room')
-        ChatHistory = History(msgh=session.get('name') + ':' + message['msg'])
-        db.session.add(ChatHistory)
-        db.session.commit() 
-        
-
-        print(session.get('name') + ':' + message['msg'])
-        emit('message', {'msg': session.get('name') + ':'+ message['msg']}, room=room, user=current_user)
+        if message['msg'] == "":
+            flash('message', {'msg': 'must contain text'})       
+        else:
+            room = session.get('room')
+            currentTime = datetime.now().astimezone().isoformat()
+            ChatHistory = History(msg=message['msg'], Timestamp=currentTime, userid=current_user)  
+            db.session.add(ChatHistory)
+            db.session.commit()
+            print(message['msg'])
+            print(currentTime)
+            messageid = History.query.filter_by(msg=message['msg'], Timestamp=currentTime).first()
+            emit('message', {'username': session.get('name'), 'msg': message['msg'], 'time': currentTime, 'message_id':messageid.id, 'icon': current_user.icon}, room=room, user=current_user)
 
     @socketio.on('left', namespace='/chat')
     def left(message):
@@ -92,12 +85,9 @@ def create_app():
         A status message is broadcast to all people in the room."""
         room = session.get('room')
         leave_room(room)
-        emit('status', {'msg': session.get('name') +
-             ' has left the room.'}, room=room, user=current_user)
+        emit('status', {'msg': session.get('name') + ' has left the room.'}, room=room, user=current_user)
 
         
-
-
     socketio.init_app(app, cors_allowed_origins="*")
     return app
 

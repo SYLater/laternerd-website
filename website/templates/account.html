@@ -4,46 +4,73 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <h1>Account</h1>
 
-
-
-
-<div class="div1">
+<div class="UserDetails">
   <img src="{{user.icon}}" alt="{{user.iconName}}" class="showicon">
   <table>
-    <th>
-        <tr>
-            <td class="info">UserName</td>
-            <td>{{user.UserName}}</td>
-        </tr>
-    </th>
     <tr>
-        <td class="info">Email</td>
-        <td>{{user.Email}}</td>
+      <td class="info">UserName</td>
+      <td>{{user.UserName}}</td>
+    </tr>
+    <tr>
+      <td class="info">Email</td>
+      <td>{{user.Email}}</td>
+    </tr>
+    <tr>
+      <td class="info">paduaEmail</td>
+      <td>{{paduaEmail}}</td>
     </tr>
   </table>
-  <form method="POST" enctype="multipart/form-data">
-    <label for="icon">Icon</label>
-    <input type="file" name="icon" placeholder="Enter icon Link" />
-    <button type="submit">submit</button>
-  </form>
+
+  <button id="edituserBTN" onclick="toggleText()">Edit Account</button>
+
+  <div id="edituser" class="form-popup">
+    <form method="POST" enctype="multipart/form-data">
+      <label for="icon">Icon</label>
+      <input type="file" name="icon" placeholder="Enter icon Link" />
+      <input type="text" name="NewUserName" id="NewUserName" class="form-control" placeholder="Enter New UserName" />
+      
+      <button type="submit">submit</button>
+    </form>
+  </div>
 </div>
 
+<script>
+  function toggleText() {
+    var x = document.getElementById("edituser");
+    if (x.style.display === "block") {
+      x.style.display = "none";
+    } else {
+      x.style.display = "block";
+    }
+  }
+</script>
 
 <style>
+  /* The popup form - hidden by default */
+  .form-popup {
+    display: none;
+    position: fixed;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+  }
+
   .showicon {
     height: 100px;
     width: 100px;
     border-radius: 50%;
     object-fit: cover;
   }
+
   .info {
     width: 30%;
   }
+
   td {
-    border:1px solid black;
+    border: 1px solid black;
     border-collapse: collapse;
   }
-  .div1 {
+
+  .UserDetails {
     position: absolute;
     left: 0%;
   }

@@ -1,33 +1,23 @@
+var title = document.title;
+var count = 0;
 
-<script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
-var socket;
-            $(document).ready(function(){
-                socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
-                socket.on('connect', function() {
-                    socket.emit('joined', {});
-                });
-                socket.on('status', function(data) {
-                    $('#chat').val($('#chat').val() + '<' + data.msg + '>\n');
-                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
-                });
-                socket.on('message', function(data) {
-                    $('#chat').val($('#chat').val() + data.msg + '\n');
-                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
-                });
-                $('#text').keypress(function(e) {
-                    var code = e.keyCode || e.which;
-                    if (code == 13) {
-                        text = $('#text').val();
-                        $('#text').val('');
-                        socket.emit('text', {msg: text});
-                    }
-                });
-            });
-            function leave_room() {
-                socket.emit('left', {}, function() {
-                    socket.disconnect();
+function changeTitle() {
+    count++;
+    var newTitle = '(' + count + ') ' + title;
+    document.title = newTitle;
+}
 
-                    // go back to the login page
-                    window.location.href = "{{ url_for('.index') }}";
-                });
-            }
+function resetTitle() {
+    document.title = title;
+    count = 0;
+}
+
+function checkTabFocused() {
+    if (document.visibilityState === 'visible') {
+        console.log('✅ browser tab has focus');
+        resetTitle();
+    } else {
+        console.log('⛔️ browser tab does NOT have focus');
+        changeTitle();
+    }
+}

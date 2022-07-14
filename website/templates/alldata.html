@@ -38,7 +38,9 @@
 </style>
 
 <body>
+ <!-- Suggestions -->  
     <div>
+        <h2>Suggestions</h2>
         <table style="margin-left: 20px;">
             <!-- Table headers -->
             <th>
@@ -59,7 +61,9 @@
             </tr>
         </table>
     </div>
+ <!-- Users -->
     <div>
+        <h2>Users</h2>
         <table style="margin-left: 20px;">
             <!-- Table headers -->
             <th>
@@ -82,25 +86,7 @@
             </tr>
         </table>
     </div>
-    <div>
-        <table style="margin-left: 20px;">
-            <!-- Table headers -->
-            <th>
-                <tr style="color: green; ">
-                    <td>id</td>
-                    <td>Message</td>
-                </tr>
-            </th>
-            <!-- For loop logic of jinja template -->
-            {%for history1 in history%}
-            <!-- table rows -->
-            <tr>
-                <td>{{history1.id}}</td>
-                <td>{{history1.msgh}}</td>
-                {%endfor%}
-            </tr>
-        </table>
-    </div>
+
 </body>
 
 </html>

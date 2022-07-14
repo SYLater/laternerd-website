@@ -1,15 +1,8 @@
 <!DOCTYPE html>
-<html>
-
-
-
-
-<main>
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
+<html lang="en">
+  
+  <head >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/base.css') }}" />
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -18,6 +11,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}"></script>
     <title>{% block title %}Laternerd{% endblock %}</title>
+  </head>
+<main>
     <header>
       <div class="nav">
         <a class="nav-item"><a class="nav-link" id="home" href="/"><span class="link-text">Home</a>
@@ -27,7 +22,7 @@
         <!-- <a class="nav-item"><a class="nav-link" id="bettersimonload" href="/bettersimonload" class="link-text">BetterSimonload</a> -->
         <a class="nav-item"><a class="nav-link" id="suggestions" href="/suggestions"><span class="link-text">Suggestions</a>
         <div class="dropdown">
-          <img src="{{user.icon}}" class="icon" />
+          <img src="{{user.icon}}" alt="static/images/usericons/default_icon.png" class="icon" />
             <button onclick="NavDropDown()" class="dropbtn">{{user.UserName}}</button>
           <div id="myDropdown" class="dropdown-content">
           <a class="nav-item"><a class="nav-link" id="account" href="/account"><span class="link-text">Account</a>
@@ -42,7 +37,7 @@
         {% endif %}
       </div>
     </header>
-  </head>
+  
   <!-- Flashing errors -->
   <div>
     {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
@@ -66,18 +61,55 @@
   <div class="container">
     {% block content %} {% endblock %}
   </div>
+
+
   <!-- ChangeBackground Colour -->
-  <div  id='colorchangerbtn' class="color-changer">Background Colour
-      <input  oninput="colorchanger()" id='colorchangerbtn' name="colorchangerbtn" type="color"></input>
-  </div>
-  <script>
-    
-    const changer = document.querySelector("div.color-changer input")
-    const bodyTag = document.querySelector("body")
-    changer.addEventListener("input", function () {
-      bodyTag.style.backgroundColor = changer.value
-      const color = (changer.value)
-    })
-  </script>
+  <div  id='colorchanger' class="color-changer">Background Colour
+    <input  aria-labelledby="colorchangerbtn" oninput="colorchanger()" id='colorchangerbtn' type="color"></input>
+</div>
+
+
+
+
+<script>
+  var setbgc = document.body.style.backgroundColor = getCookie("bgc");
+  setbgc
+  // <!-- trying to add a colour wheel for the backgroud -->
+  function colorchanger() {
+    setCookie("bgc", changer.value, 30);
+  }
+
+  function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
+
+  function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+  /* When the user clicks on the button, 
+  toggle between hiding and showing the dropdown content */
+  function NavDropDown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+  const changer = document.querySelector("div.color-changer input")
+  const bodyTag = document.querySelector("body")
+  changer.addEventListener("input", function () {
+    bodyTag.style.backgroundColor = changer.value
+    const color = (changer.value)
+  })
+</script>
   </main>
 </html>

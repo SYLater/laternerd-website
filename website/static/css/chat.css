@@ -1,20 +1,92 @@
-
-
-
-textarea {
-    text-align: left;
-    padding-right: 0%;
-    padding: 0%;
-    padding-left: 0%;
-    border: 3px solid #888; 
-    padding: 0; 
-    margin: 0;
-    border-collapse: collapse;
-    white-space: pre-line;
+input {
+  position: absolute;
+  height: 5%;
+  /* width: auto; */
+  width: 80%;
+  right: 10%;
+  bottom: 0%;
+  border-radius: 15pc;
+  border-width: 0px;
 }
-.textwrapper
-{
-  border:1px solid #999999;
-  margin:5px 0;
-  padding:3px;
+
+li {
+  list-style: none;
+  margin-top: 1%;
 }
+
+
+.AllMessages {
+  height:92.5%; 
+  overflow:hidden; 
+  overflow-y:scroll;
+  display: flex;
+  flex-direction: column-reverse;
+  z-index: -1;
+}
+
+.AllMessages {
+  position: absolute;
+  bottom: 5%;
+  left: 10%;
+  width: 80%; 
+}
+
+.user-avatar {
+  position: absolute;
+  left: 16px;
+  margin-top: calc(4px - 0.125rem);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+
+.name-time-header {
+  position: relative;
+  font-size: medium;
+  left: 17px;
+  bottom: 10%;
+  margin: 0%;
+  width: 80%; 
+}
+.messageContent {
+  position: relative;
+  font-size: large;
+  width: 80%; 
+  overflow: hidden;
+  text-overflow: clip; 
+  left: 17px;
+}
+
+.timestamp {
+  position: relative;
+  font-size: x-small;
+  color: #333;
+  text-shadow: none;
+  width: 80%; 
+}
+
+/* scrollbar */
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 25px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 25px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 25px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+    border-radius: 25px;
+  }

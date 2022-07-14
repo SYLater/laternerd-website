@@ -2,12 +2,53 @@
 
 {% block content %}
 <html>
-  <head>
+
+<head>
   <form method="post">
-    <div >
-        <button>test</button>
-        </div>
-    <button type="submit">submit</button>
+    <input type="submit" name="submit_button" value="Grades">
+    <input type="submit" name="submit_button" value="class">
   </form>
+  <div>
+    <table style="margin-left: 20px;">
+
+      <tr style="color: green; ">
+        <td>id</td>
+      </tr>
+      {% for i in range((len(classCodes)))%}
+      <tr>
+        <td>{{classCodes['class' + str(i + 1)]}}</td>
+        {%endfor%}
+      </tr>
+      <tr style="color: green; ">
+        <td>id</td>
+      </tr>
+      {% for i in range((len(classNames)))%}
+      <tr>
+        <td>{{classNames['class' + str(i + 1)]}}</td>
+        {%endfor%}
+      </tr>
+      <tr style="color: green; ">
+        <td>id</td>
+      </tr>
+      {% for i in range((len(classDomain)))%}
+      <tr>
+        <td>{{classDomain['class' + str(i + 1)]}}</td>
+        {%endfor%}
+      </tr>
+      <tr style="color: green; ">
+        <td>Grades</td>
+      </tr>
+      <tr>
+        <td>{{ Grades["Grades"]}}</td>
+      </tr>
+      <tr style="color: green; ">
+        <td>Name</td>
+      </tr>
+      <tr>
+        <td>{{paduaName}}</td>
+      </tr>
+    </table>
+  </div>
+
 </html>
 {% endblock %}

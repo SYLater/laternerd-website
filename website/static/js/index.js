@@ -1,6 +1,5 @@
-var setbgc = document.body.style.backgroundColor = getCookie("bgc");
-var setbgc
-
+var setbgc = document.backgroundColor = getCookie("bgc");
+setbgc;
 // <!-- trying to add a colour wheel for the backgroud -->
 function colorchanger() {
     setCookie("bgc", changer.value, 30);
@@ -31,6 +30,7 @@ toggle between hiding and showing the dropdown content */
 function NavDropDown() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
+
 // Close the dropdown if the user clicks outside of it
 window.onclick = function (event) {
     if (!event.target.matches('.dropbtn')) {
@@ -43,4 +43,4 @@ window.onclick = function (event) {
             }
         }
     }
-}
+};

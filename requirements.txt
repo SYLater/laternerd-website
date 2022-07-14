@@ -20,4 +20,4 @@ pymysql
 cryptography
 requests
 pillow
-pytz
+moment
